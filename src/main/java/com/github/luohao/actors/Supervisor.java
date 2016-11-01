@@ -28,7 +28,7 @@ import java.util.List;
 @Scope("prototype")
 public class Supervisor extends UntypedActor {
 
-    private final LoggingAdapter log = Logging.getLogger(getContext().system(), "Supervisor");
+    private final LoggingAdapter log = Logging.getLogger(getContext().system(), Supervisor.class.getName());
 
     @Autowired
     private SpringExtension springExtension;

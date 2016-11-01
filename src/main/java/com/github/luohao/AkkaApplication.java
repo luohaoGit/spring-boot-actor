@@ -31,7 +31,7 @@ public class AkkaApplication {
 
         ActorSystem system = context.getBean(ActorSystem.class);
 
-        final LoggingAdapter log = Logging.getLogger(system, "Application");
+        final LoggingAdapter log = Logging.getLogger(system, AkkaApplication.class.getName());
 
         log.info("Starting up");
 
