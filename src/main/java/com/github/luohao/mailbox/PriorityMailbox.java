@@ -15,7 +15,6 @@ public class PriorityMailbox extends UnboundedPriorityMailbox {
 
         // Create a new PriorityGenerator, lower priority means more important
         super(new PriorityGenerator() {
-
             @Override
             public int gen(Object message) {
                 if (message instanceof Task) {

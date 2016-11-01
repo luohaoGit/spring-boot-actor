@@ -18,7 +18,7 @@ import java.util.Properties;
 @Configuration
 @Lazy
 @ComponentScan(basePackages = { "com.github.luohao.services",
-    "com.github.luohao.actors", "com.github.luohao.extension" })
+        "com.github.luohao.actors", "com.github.luohao.extension" })
 public class ApplicationConfiguration {
 
     // The application context is needed to initialize the Akka Spring
@@ -35,8 +35,7 @@ public class ApplicationConfiguration {
     @Bean
     public ActorSystem actorSystem() {
 
-        ActorSystem system = ActorSystem
-            .create("AkkaTaskProcessing", akkaConfiguration());
+        ActorSystem system = ActorSystem.create("AkkaTaskProcessing", akkaConfiguration());
 
         // Initialize the application context in the Akka Spring Extension
         springExtension.initialize(applicationContext);
@@ -60,10 +59,8 @@ public class ApplicationConfiguration {
 
         // Disable c3p0 logging
         final Properties properties = new Properties(System.getProperties());
-        properties.put("com.mchange.v2.log.MLog",
-            "com.mchange.v2.log.FallbackMLog");
-        properties.put("com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL",
-            "OFF");
+        properties.put("com.mchange.v2.log.MLog", "com.mchange.v2.log.FallbackMLog");
+        properties.put("com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL", "OFF");
         System.setProperties(properties);
 
         final ComboPooledDataSource source = new ComboPooledDataSource();
@@ -74,8 +71,7 @@ public class ApplicationConfiguration {
         source.setPassword("");
 
         JdbcTemplate template = new JdbcTemplate(source);
-        template.update("CREATE TABLE tasks (id INT(11) AUTO_INCREMENT, " +
-            "payload VARCHAR(255), updated DATETIME)");
+        template.update("CREATE TABLE tasks (id INT(11) AUTO_INCREMENT, payload VARCHAR(255), updated DATETIME)");
         return template;
     }
 }

@@ -13,15 +13,13 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class TaskActor extends UntypedActor {
 
-    private final LoggingAdapter log = Logging
-        .getLogger(getContext().system(), "TaskProcessor");
+    private final LoggingAdapter log = Logging.getLogger(getContext().system(), "TaskProcessor");
 
     @Autowired
     private TaskDAO taskDAO;
 
     @Override
     public void onReceive(Object message) throws Exception {
-
         Long result = taskDAO.createTask((Task) message);
         log.debug("Created task {}", result);
     }

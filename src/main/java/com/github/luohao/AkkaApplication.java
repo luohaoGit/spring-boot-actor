@@ -22,13 +22,12 @@ import java.util.Random;
  */
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan("de.kimrudolph.akkaflow.configuration")
+@ComponentScan("com.github.luohao.configuration")
 public class AkkaApplication {
 
     public static void main(String[] args) throws Exception {
 
-        ApplicationContext context =
-            SpringApplication.run(AkkaApplication.class, args);
+        ApplicationContext context = SpringApplication.run(AkkaApplication.class, args);
 
         ActorSystem system = context.getBean(ActorSystem.class);
 
@@ -39,8 +38,7 @@ public class AkkaApplication {
         SpringExtension ext = context.getBean(SpringExtension.class);
 
         // Use the Spring Extension to create props for a named actor bean
-        ActorRef supervisor = system.actorOf(
-            ext.props("supervisor").withMailbox("akka.priority-mailbox"));
+        ActorRef supervisor = system.actorOf(ext.props("supervisor").withMailbox("akka.priority-mailbox"));
 
         for (int i = 1; i < 1000; i++) {
             Task task = new Task("payload " + i, new Random().nextInt(99));
@@ -56,7 +54,7 @@ public class AkkaApplication {
         }
 
         log.info("Created {} tasks", context.getBean(JdbcTemplate.class)
-            .queryForObject("SELECT COUNT(*) FROM tasks", Integer.class));
+                .queryForObject("SELECT COUNT(*) FROM tasks", Integer.class));
 
         log.info("Shutting down");
 

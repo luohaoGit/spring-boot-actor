@@ -33,8 +33,7 @@ public class TaskDAO {
             public PreparedStatement createPreparedStatement(
                 Connection connection) throws SQLException {
                 PreparedStatement ps = connection
-                    .prepareStatement("INSERT INTO tasks (payload, updated" +
-                        ") VALUES(?, NOW())",
+                    .prepareStatement("INSERT INTO tasks (payload, updated) VALUES(?, NOW())",
                         Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, task.getPayload());
                 return ps;

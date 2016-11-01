@@ -28,8 +28,7 @@ import java.util.List;
 @Scope("prototype")
 public class Supervisor extends UntypedActor {
 
-    private final LoggingAdapter log = Logging
-        .getLogger(getContext().system(), "Supervisor");
+    private final LoggingAdapter log = Logging.getLogger(getContext().system(), "Supervisor");
 
     @Autowired
     private SpringExtension springExtension;
@@ -43,8 +42,7 @@ public class Supervisor extends UntypedActor {
 
         List<Routee> routees = new ArrayList<Routee>();
         for (int i = 0; i < 100; i++) {
-            ActorRef actor = getContext().actorOf(springExtension.props(
-                "taskActor"));
+            ActorRef actor = getContext().actorOf(springExtension.props("taskActor"));
             getContext().watch(actor);
             routees.add(new ActorRefRoutee(actor));
         }
@@ -54,14 +52,12 @@ public class Supervisor extends UntypedActor {
 
     @Override
     public void onReceive(Object message) throws Exception {
-
         if (message instanceof Task) {
             router.route(message, getSender());
         } else if (message instanceof Terminated) {
             // Readd task actors if one failed
             router = router.removeRoutee(((Terminated) message).actor());
-            ActorRef actor = getContext().actorOf(springExtension.props
-                ("taskActor"));
+            ActorRef actor = getContext().actorOf(springExtension.props("taskActor"));
             getContext().watch(actor);
             router = router.addRoutee(new ActorRefRoutee(actor));
         } else {
