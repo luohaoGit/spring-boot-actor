@@ -28,8 +28,7 @@ public class TaskDAO {
         KeyHolder holder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(new PreparedStatementCreator() {
-            public PreparedStatement createPreparedStatement(
-                Connection connection) throws SQLException {
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection
                     .prepareStatement("INSERT INTO tasks (payload, updated) VALUES(?, NOW())",
                         Statement.RETURN_GENERATED_KEYS);

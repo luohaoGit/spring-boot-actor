@@ -1,4 +1,4 @@
-package com.github.luohao.actors;
+package com.github.luohao.supervisor;
 
 import akka.actor.ActorRef;
 import akka.actor.Terminated;
